@@ -12,22 +12,35 @@ namespace permCircles
     {
         static void Main (string[] args)
         {
-            int[] pos1 = { 1, 2, 3, 4};
-            int[] pos2 = { 5, 6, 7, 8 };
-            var first = new List<int>(pos1);
-            var second = new List<int>(pos2);
+            int[] pos1   = {  1,  2,  3,  4 };
+            int[] pos2   = {  5,  6,  7,  8 };
+            int[] pos3   = {  9, 10, 11, 12 };
+            int[] posAns = { 15, 18, 21, 24 };
+
+            var first   = new List<int>(pos1);
+            var second  = new List<int>(pos2);
+            var third   = new List<int>(pos3);
+            var answers = new List<int>(posAns);
 
             //var tPart = turnWheel(first, 1);
 
             WheelPos [] items = {};
 
-            var secLoop = buildWheelLoop(items, second, 
-                //0
-                second.Count() - 1
-                );
+            var secLoop = buildWheelLoop(items, second, second.Count() - 1);
+            var thrLoop = buildWheelLoop(items, third, third.Count() - 1);
+            var ansLoop = buildWheelLoop(items, answers, answers.Count() - 1);
 
+            printWheel(secLoop);
+
+            Console.WriteLine("done");
+
+            int i = 0;
+        }
+
+        static void printWheel (IEnumerable<WheelPos> loop) {
+            
             Console.WriteLine("Wheel loop");
-            foreach (var pos in secLoop)
+            foreach (var pos in loop)
             {
                 Console.WriteLine(pos);
                 //Console.WriteLine(item.First());
@@ -41,10 +54,6 @@ namespace permCircles
                     Console.Write(" ");
                 }
             }
-
-            Console.WriteLine("done");
-
-            int i = 0;
         }
 
         //static List<int> turnWheel (List<int> wheelPos, int chunk) {
