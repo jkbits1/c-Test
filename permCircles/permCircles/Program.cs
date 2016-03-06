@@ -21,6 +21,15 @@ namespace permCircles
 
             var newItems = buildWheelLoop(items, tPart, 0);
 
+            foreach (var item in newItems)
+            {
+                Console.WriteLine(item);
+                Console.WriteLine(item.First());
+                Console.WriteLine(item.ToString());
+            }
+
+            Console.WriteLine("t");
+
             int i = 0;
         }
 
