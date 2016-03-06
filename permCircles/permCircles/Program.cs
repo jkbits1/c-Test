@@ -12,23 +12,37 @@ namespace permCircles
     {
         static void Main (string[] args)
         {
-            int [] pos = {1,2,3,4};
-            List<int> first = new List<int>(pos);
+            int[] pos1 = { 1, 2, 3, 4};
+            int[] pos2 = { 5, 6, 7, 8 };
+            var first = new List<int>(pos1);
+            var second = new List<int>(pos2);
 
-            var tPart = turnWheel(first, 1);
+            //var tPart = turnWheel(first, 1);
 
             WheelPos [] items = {};
 
-            var newItems = buildWheelLoop(items, tPart, 0);
+            var secLoop = buildWheelLoop(items, second, 
+                //0
+                second.Count() - 1
+                );
 
-            foreach (var item in newItems)
+            Console.WriteLine("Wheel loop");
+            foreach (var pos in secLoop)
             {
-                Console.WriteLine(item);
-                Console.WriteLine(item.First());
-                Console.WriteLine(item.ToString());
+                Console.WriteLine(pos);
+                //Console.WriteLine(item.First());
+
+                var posVals = pos.TakeWhile(x => true);
+
+                Console.WriteLine("Wheel pos");
+                foreach (var val in posVals)
+                {
+                    Console.Write(val);
+                    Console.Write(" ");
+                }
             }
 
-            Console.WriteLine("t");
+            Console.WriteLine("done");
 
             int i = 0;
         }
@@ -47,27 +61,27 @@ namespace permCircles
 
         // static WheelLoop buildWheelLoop 
         static IEnumerable<WheelPos> buildWheelLoop 
-            (IEnumerable<WheelPos> positions, WheelPos pos, int count) {
+                (IEnumerable<WheelPos> positions, WheelPos pos, int count) {
+            IEnumerable<WheelPos> newPositions = null;
 
             if (count == 0)
             {
+                Console.WriteLine("last pos of loop");
+
                 WheelPos [] listFromPos = { pos };
 
-                var newPositions = positions.Concat(listFromPos);
+                newPositions = positions.Concat(listFromPos);
 
                 return newPositions;
-
-                //positions.Concat(listFromPos);
-
-                //return positions;
-
             }
 
+            Console.WriteLine("loop pos");
 
+            WheelPos[] turn = { turnWheel(pos, count) };
 
-
+            newPositions = positions.Concat(turn);                    
             //WheelLoop w = null;
-            IEnumerable<WheelPos> w = null;
+            IEnumerable<WheelPos> w = buildWheelLoop(newPositions, pos, count - 1); ;
 
             return w;
         }
